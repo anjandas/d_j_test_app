@@ -1,0 +1,23 @@
+<h1> Jobs </h1>
+
+<p id="notice"><%= notice %></p>
+
+<% for job in @jobs %>
+  <div class="job">
+    <h2><%= link_to job.name, job %></h2>
+    <% unless job.delivered_at.nil? %>
+      Job performed at: <%= job.delivered_at.to_s(:long) %><br />
+    <% end %>
+    <%= link_to "Perform Job inline", perform_inline_job_path(job), :confirm => 'Performing Job inline. Your App will be unresponsive for a while. Are you sure you want to continue?', :method => :post %> |
+    <%= link_to "BG Normal using delay(:priority => 5)", perform_old_way_job_path(job), :confirm => 'Performing job in the background with normal importance. Are you sure?', :method => :post %> |
+    <%= link_to "BG Low using delay(:importance => \"low\")", perform_as_low_importance_with_delay_job_path(job), :confirm => 'Performing job in the background with low importance. Are you sure?', :method => :post %> |
+    <%= link_to "BG High using delay(:importance => \"high\")", perform_as_high_importance_with_delay_job_path(job), :confirm => 'Performing job in the background with high importance. Are you sure?', :method => :post %> <br />
+    <%= link_to "BG ExampleJob with Normal importance", perform_examplejob_with_normal_importance_job_path(job), :confirm => 'Performing job in the background with normal importance. Are you sure?', :method => :post %> |
+    <%= link_to "BG ExampleJob with Low importance", perform_examplejob_with_low_importance_job_path(job), :confirm => 'Performing job in the background with low importance. Are you sure?', :method => :post %> |
+    <%= link_to "BG ExampleJob with High importance", perform_examplejob_with_high_importance_job_path(job), :confirm => 'Performing job in the background with high importance. Are you sure?', :method => :post %> <br />
+    <%= link_to "Edit Job", edit_job_path(job) %> |
+    <%= link_to "Destroy Job", job, :confirm =>  'Are you sure?', :method => :delete %> 
+  </div>
+<% end %>
+
+<%= link_to 'New Job', new_job_path %>
